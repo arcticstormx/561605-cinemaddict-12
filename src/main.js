@@ -11,7 +11,7 @@ const createUserRank = () => {
       <p class="profile__rating">Movie Buff</p>
       <img class="profile__avatar" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
      </section>`
-    );
+  );
 };
 
 // создать меню навигации по разделам
@@ -26,8 +26,8 @@ const createMainNav = () => {
     </div>
     <a href="#stats" class="main-navigation__additional">Stats</a>
   </nav>`
-    );
-}
+  );
+};
 // создать сортировку по дате и т.д.
 const createMainSort = () => {
   return (
@@ -36,8 +36,8 @@ const createMainSort = () => {
     <li><a href="#" class="sort__button">Sort by date</a></li>
     <li><a href="#" class="sort__button">Sort by rating</a></li>
   </ul>`
-    );
-}
+  );
+};
 // создать контейнер секцию для карточек с фильмами
 const createFilmsBlock = () => {
   return (
@@ -50,13 +50,13 @@ const createFilmsBlock = () => {
 
     </section>`
   );
-}
+};
 // создать кнопку show more
 const createShowMoreButton = () => {
   return (
     `<button class="films-list__show-more">Show more</button>`
-    );
-}
+  );
+};
 
 // создать секцию топовых фильмов
 const createTopRatedBlock = () => {
@@ -67,7 +67,7 @@ const createTopRatedBlock = () => {
       <div class="films-list__container"></div>
     </section>`
   );
-}
+};
 // создать секцию с фильмов с наибольшими комментариями
 const createMostCommentedBlock = () => {
   return (
@@ -78,7 +78,7 @@ const createMostCommentedBlock = () => {
       </div>
     </section>`
   );
-}
+};
 
 // создать карточку фильма
 const createFilmCard = () => {
@@ -100,56 +100,56 @@ const createFilmCard = () => {
         <button class="film-card__controls-item button film-card__controls-item--favorite">Mark as favorite</button>
       </form>
     </article>`
-    );
-}
+  );
+};
 // создать статистику количества фильмов на сайте
 const createFilmStatistics = () => {
   return (
     `<section class="footer__statistics">
     <p>130 291 movies inside</p>
     </section>`
-    );
-}
+  );
+};
 
-const siteHeaderElement = document.querySelector(".header");
-const siteMainElement = document.querySelector(".main");
-const siteFooterElement = document.querySelector(".footer");
+const siteHeaderElement = document.querySelector(`.header`);
+const siteMainElement = document.querySelector(`.main`);
+const siteFooterElement = document.querySelector(`.footer`);
 
 // отрисуем ранк юзера, навигацию, сортировку и пока пустую секцию фильмов
-render(siteHeaderElement, createUserRank(), 'beforeend');
-render(siteMainElement, createMainNav(), 'beforeend');
-render(siteMainElement, createMainSort(), 'beforeend');
-render(siteMainElement, createFilmsBlock(), 'beforeend');
+render(siteHeaderElement, createUserRank(), `beforeend`);
+render(siteMainElement, createMainNav(), `beforeend`);
+render(siteMainElement, createMainSort(), `beforeend`);
+render(siteMainElement, createFilmsBlock(), `beforeend`);
 
-const mainFilmsBlock = siteMainElement.querySelector('.films');
-const filmsList = mainFilmsBlock.querySelector('.films-list');
-const filmsListContainer = filmsList.querySelector('.films-list__container');
+const mainFilmsBlock = siteMainElement.querySelector(`.films`);
+const filmsList = mainFilmsBlock.querySelector(`.films-list`);
+const filmsListContainer = filmsList.querySelector(`.films-list__container`);
 
 // отрисуем карточки фильмов внутри главного блока фильмов
 for (let i = 0; i < 5; i++) {
-  render(filmsListContainer, createFilmCard(), 'beforeend');
+  render(filmsListContainer, createFilmCard(), `beforeend`);
 }
-render(filmsListContainer, createShowMoreButton(), 'beforeend');
+render(filmsListContainer, createShowMoreButton(), `beforeend`);
 
 // отрисуем блок топовых фильмов
-render(mainFilmsBlock, createTopRatedBlock(), 'beforeend');
+render(mainFilmsBlock, createTopRatedBlock(), `beforeend`);
 
-const topRatedBlock = mainFilmsBlock.querySelector('.films-list--extra');
-const topRatedBlockContainer = topRatedBlock.querySelector('.films-list__container');
+const topRatedBlock = mainFilmsBlock.querySelector(`.films-list--extra`);
+const topRatedBlockContainer = topRatedBlock.querySelector(`.films-list__container`);
 
 for (let i = 0; i < 2; i++) {
-  render(topRatedBlockContainer, createFilmCard(), 'beforeend');
+  render(topRatedBlockContainer, createFilmCard(), `beforeend`);
 }
 
 // отрисуем блок комментируемых фильмов
-render(mainFilmsBlock, createMostCommentedBlock(), 'beforeend');
+render(mainFilmsBlock, createMostCommentedBlock(), `beforeend`);
 
-const mostCommentedBlock = mainFilmsBlock.querySelector('.films-list--extra:nth-of-type(3)');
-const mostCommentedBlockContainer = mostCommentedBlock.querySelector('.films-list__container');
+const mostCommentedBlock = mainFilmsBlock.querySelector(`.films-list--extra:nth-of-type(3)`);
+const mostCommentedBlockContainer = mostCommentedBlock.querySelector(`.films-list__container`);
 
 for (let i = 0; i < 2; i++) {
-  render(mostCommentedBlockContainer, createFilmCard(), 'beforeend');
+  render(mostCommentedBlockContainer, createFilmCard(), `beforeend`);
 }
 
 // отрисуем количество фильмов на сайте в футере
-render(siteFooterElement, createFilmStatistics(), 'beforeend');
+render(siteFooterElement, createFilmStatistics(), `beforeend`);
