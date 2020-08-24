@@ -7,6 +7,7 @@ import {createTopRatedBlock} from "./view/createTopRatedBlock.js";
 import {createMostCommentedBlock} from "./view/createMostCommentedBlock.js";
 import {createFilmCard} from "./view/createFilmCard.js";
 import {createFilmStatistics} from "./view/createFilmStatistics.js";
+import {createMockFilmCard} from "./view/createMockFilmCard.js";
 
 // функция отрисовки компонентов на HTML странице
 const render = (container, template, place) => {
