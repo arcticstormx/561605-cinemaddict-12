@@ -1,11 +1,3 @@
-// сгенерировать Мок карточку фильма
-// 1. Взять название фильма из случайного постера в папке posters
-// 2. Взять картинку постера (сам файл) из той же папки posters
-// 3. Взять от 1 до 5 случайных предложений из текста Lorem ipsum
-// и добавить как комментарий
-// 4. Самих комментариев должно быть от 0 до 5 штук
-
-
 // Данные
 // Названия фильмов
 const POSTER_NAMES = [
@@ -145,7 +137,7 @@ const createRandomComment = () => {
   let comment = {};
   comment.author = getRandomName(MOCK_NAMES, MOCK_LASTNAMES);
   comment.text = getRandomText(MOCK_LINES, 5);
-  comment.emoticon = getRandomElement(emoticons);
+  comment.emoticon = getRandomElement(EMOTICONS);
   comment.date = getRandomDate(new Date(2020, 0, 1), new Date());
   return comment;
 };
@@ -158,8 +150,11 @@ const generateComments = (number) => {
   return comments;
 };
 
+
+
 // Создать объект карточки фильма
-const createMockFilmCard = () => {
+// Экспортиурем эту функцию
+export const createMockFilmCard = () => {
   let card = {};
   card.filmName = getRandomElement(POSTER_NAMES);
   card.posterURL = getRandomElement(POSTER_URLS);
@@ -173,4 +168,5 @@ const createMockFilmCard = () => {
   card.genres = getRandomElement(GENRES);
   card.description = getRandomText(DESCRIPTION_LINES);
   card.comments = generateComments(getRandomNumber(0, 5));
+  return card;
 };
