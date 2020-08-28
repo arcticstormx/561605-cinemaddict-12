@@ -12,13 +12,13 @@ const POSTER_NAMES = [
 
 // URL до самих постеров
 const POSTER_URLS = [
-  "../public/images/posters/made-for-each-other.png",
-  "../public/images/posters/popeye-meets-sinbad.png",
-  "../public/images/posters/sagebrush-trail.jpg",
-  "../public/images/posters/santa-claus-conquers-the-martians.jpg",
-  "../public/images/posters/the-dance-of-life.jpg",
-  "../public/images/posters/the-great-flamarion.jpg",
-  "../public/images/posters/the-man-with-the-golden-arm.jpg"
+  "./images/posters/made-for-each-other.png",
+  "./images/posters/popeye-meets-sinbad.png",
+  "./images/posters/sagebrush-trail.jpg",
+  "./images/posters/santa-claus-conquers-the-martians.jpg",
+  "./images/posters/the-dance-of-life.jpg",
+  "./images/posters/the-great-flamarion.jpg",
+  "./images/posters/the-man-with-the-golden-arm.jpg"
 ];
 
 // Строки lorem ipsum
@@ -100,9 +100,14 @@ const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 // Взять случайный элемент массива
-const getRandomElement = (arr) => {
-  const max = arr.length - 1;
-  return arr[getRandomNumber(0, max)];
+const getRandomElement = (test) => {
+  const max = test.length - 1;
+  return test[getRandomNumber(0, max)];
+};
+// Создать случайный рейтинг фильма
+const getRandomRating = (min, max) => {
+  let rating = (Math.random() * (max - min + 1) + min).toFixed(1);
+  return rating > 10 ? 10.0 : rating;
 };
 // Создать случайное имя
 const getRandomName = (namesArr, surnamesArr) => {
@@ -115,12 +120,11 @@ const getRuntime = () => {
   return hours ? `${hours}h ${minutes}min` : `${minutes}min`;
 };
 
-
 // Собрать случайный текст комментария
 const getRandomText = (arr, maxNumber) => {
-  let lines = [];
+  const lines = [];
   const quantity = getRandomNumber(1, maxNumber);
-  for (let i = 0; i > quantity; i++) {
+  for (let i = 0; i < quantity; i++) {
     lines.push(getRandomElement(arr));
   };
   return lines.join(" ");
@@ -144,29 +148,29 @@ const createRandomComment = () => {
 // Сделать массив с заданным количеством комментариев
 const generateComments = (number) => {
   let comments = [];
-  for (let i = 0; i > number; i++) {
+  for (let i = 0; i < number; i++) {
     comments.push(createRandomComment());
+    console.log(createRandomComment());
   }
   return comments;
 };
 
 
-
 // Создать объект карточки фильма
 // Экспортиурем эту функцию
-export const createMockFilmCard = () => {
+export const createMockFilmData = () => {
   let card = {};
-  card.filmName = getRandomElement(POSTER_NAMES);
+  card.title = getRandomElement(POSTER_NAMES);
   card.posterURL = getRandomElement(POSTER_URLS);
-  card.rating = getRandomNumber(0, 10);
-  card.director = getRandomName();
-  card.writers = getRandomName();
-  card.actors = getRandomName();
-  card.releaseDate = getRandomNumber(0, 30) + " " + getRandomElement(MONTHS) + " " + getRandomNumber(1900, 1980);
+  card.rating = getRandomRating(1, 10);
+  card.director = getRandomName(MOCK_NAMES, MOCK_LASTNAMES);
+  card.writers = getRandomName(MOCK_NAMES, MOCK_LASTNAMES);
+  card.actors = getRandomName(MOCK_NAMES, MOCK_LASTNAMES);
+  card.date = {day: getRandomNumber(0, 30), month: getRandomElement(MONTHS), year: getRandomNumber(1900, 1980)};
   card.runtime = getRuntime();
   card.country = getRandomElement(COUNTRIES);
   card.genres = getRandomElement(GENRES);
-  card.description = getRandomText(DESCRIPTION_LINES);
+  card.description = getRandomText(MOCK_LINES, 5);
   card.comments = generateComments(getRandomNumber(0, 5));
   return card;
 };

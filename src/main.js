@@ -7,7 +7,11 @@ import {createTopRatedBlock} from "./view/createTopRatedBlock.js";
 import {createMostCommentedBlock} from "./view/createMostCommentedBlock.js";
 import {createFilmCard} from "./view/createFilmCard.js";
 import {createFilmStatistics} from "./view/createFilmStatistics.js";
-import {createMockFilmCard} from "./mock/createMockFilmData.js";
+import {createMockFilmData} from "./mock/createMockFilmData.js";
+
+let filmsData = [...new Array(20)]
+    .map(createMockFilmData);
+// console.log(filmsData);
 
 // функция отрисовки компонентов на HTML странице
 const render = (container, template, place) => {
@@ -30,7 +34,7 @@ const filmsListContainer = filmsList.querySelector(`.films-list__container`);
 
 // отрисуем карточки фильмов внутри главного блока фильмов
 for (let i = 0; i < 5; i++) {
-  render(filmsListContainer, createFilmCard(), `beforeend`);
+  render(filmsListContainer, createFilmCard(filmsData[i]), `beforeend`);
 }
 render(filmsListContainer, createShowMoreButton(), `beforeend`);
 
@@ -41,7 +45,7 @@ const topRatedBlock = mainFilmsBlock.querySelector(`.films-list--extra`);
 const topRatedBlockContainer = topRatedBlock.querySelector(`.films-list__container`);
 
 for (let i = 0; i < 2; i++) {
-  render(topRatedBlockContainer, createFilmCard(), `beforeend`);
+  render(topRatedBlockContainer, createFilmCard(filmsData[i]), `beforeend`);
 }
 
 // отрисуем блок комментируемых фильмов
@@ -51,8 +55,9 @@ const mostCommentedBlock = mainFilmsBlock.querySelector(`.films-list--extra:nth-
 const mostCommentedBlockContainer = mostCommentedBlock.querySelector(`.films-list__container`);
 
 for (let i = 0; i < 2; i++) {
-  render(mostCommentedBlockContainer, createFilmCard(), `beforeend`);
+  render(mostCommentedBlockContainer, createFilmCard(filmsData[i]), `beforeend`);
 }
 
 // отрисуем количество фильмов на сайте в футере
-render(siteFooterElement, createFilmStatistics(), `beforeend`);
+render(siteFooterElement, createFilmStatistics(filmsData.length), `beforeend`);
+

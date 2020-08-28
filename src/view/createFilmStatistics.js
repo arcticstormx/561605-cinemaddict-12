@@ -1,8 +1,8 @@
 // создать статистику количества фильмов на сайте
-export const createFilmStatistics = () => {
+export const createFilmStatistics = (filmsNumber) => {
   return (
     `<section class="footer__statistics">
-    <p>130 291 movies inside</p>
+    <p>${filmsNumber} movies inside</p>
     </section>`
   );
 };
