@@ -64,10 +64,10 @@ const GENRES = [
 
 // URL эмотиконов
 const EMOTICONS = [
-  "./images/emoji/smile.png",
-  "./images/emoji/sleeping.png",
-  "./images/emoji/puke.png",
-  "./images/emoji/angry.png"
+  "smile",
+  "sleeping",
+  "puke",
+  "angry"
 ];
 
 // Страны
@@ -100,9 +100,9 @@ const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 // Взять случайный элемент массива
-const getRandomElement = (test) => {
-  const max = test.length - 1;
-  return test[getRandomNumber(0, max)];
+const getRandomElement = (arr) => {
+  const max = arr.length - 1;
+  return arr[getRandomNumber(0, max)];
 };
 // Создать случайный рейтинг фильма
 const getRandomRating = (min, max) => {
@@ -112,6 +112,14 @@ const getRandomRating = (min, max) => {
 // Создать случайное имя
 const getRandomName = (namesArr, surnamesArr) => {
   return getRandomElement(namesArr) + " " + getRandomElement(surnamesArr);
+};
+// Создать случайный список жанров
+const getRandomGenres = (number) => {
+  const arr = [];
+  for (let i = 0; i < number; i++) {
+    arr.push(getRandomElement(GENRES));
+  }
+  return arr;
 };
 // Создать случайное время для фильма
 const getRuntime = () => {
@@ -134,7 +142,7 @@ const getRandomText = (arr, maxNumber) => {
 // пример: randomDate(new Date(2012, 0, 1), new Date())
 const getRandomDate = (start, end) => {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-}
+};
 
 // Сгенерировать комментарий для карточки фильма
 const createRandomComment = () => {
@@ -150,7 +158,6 @@ const generateComments = (number) => {
   let comments = [];
   for (let i = 0; i < number; i++) {
     comments.push(createRandomComment());
-    console.log(createRandomComment());
   }
   return comments;
 };
@@ -163,13 +170,14 @@ export const createMockFilmData = () => {
   card.title = getRandomElement(POSTER_NAMES);
   card.posterURL = getRandomElement(POSTER_URLS);
   card.rating = getRandomRating(1, 10);
+  card.ageRating = "+" + getRandomNumber(0, 18);
   card.director = getRandomName(MOCK_NAMES, MOCK_LASTNAMES);
   card.writers = getRandomName(MOCK_NAMES, MOCK_LASTNAMES);
   card.actors = getRandomName(MOCK_NAMES, MOCK_LASTNAMES);
-  card.date = {day: getRandomNumber(0, 30), month: getRandomElement(MONTHS), year: getRandomNumber(1900, 1980)};
+  card.date = getRandomDate(new Date(1900, 0, 1), new Date());
   card.runtime = getRuntime();
   card.country = getRandomElement(COUNTRIES);
-  card.genres = getRandomElement(GENRES);
+  card.genres = getRandomGenres(3);
   card.description = getRandomText(MOCK_LINES, 5);
   card.comments = generateComments(getRandomNumber(0, 5));
   return card;

@@ -1,6 +1,9 @@
 // Создать попап фильма
+const createGenresDescription = (arr) => {
+  console.log(arr);
+  return arr.map(el => `<span class="film-details__genre">${el}</span>`).reduce((acc, el) => acc + el);
+};
 export const createFilmPopup = (film) => {
-  const {posterURL, ageRating, title, rating, director}
   return (
     `<section class="film-details">
       <form class="film-details__inner" action="" method="get">
@@ -55,12 +58,8 @@ export const createFilmPopup = (film) => {
                 <tr class="film-details__row">
                   <td class="film-details__term">Genres</td>
                   <td class="film-details__cell">
-                    ${film.genres.reduce((accum, el) => {
-                      return accum + `<span class="film-details__genre">${el}</span>`
-                    })};
-                    <span class="film-details__genre">Drama</span>
-                    <span class="film-details__genre">Film-Noir</span>
-                    <span class="film-details__genre">Mystery</span></td>
+                    ${createGenresDescription(film.genres)};
+                  </td>
                 </tr>
               </tbody></table>
 
@@ -84,12 +83,8 @@ export const createFilmPopup = (film) => {
 
         <div class="form-details__bottom-container">
           <section class="film-details__comments-wrap">
-            <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${data.comments.length}</span></h3>
-            <ul class="film-details__comments-list">${data.comments.forEach(el => {
-              return (
-                ``
-                );
-            })}</ul>
+            <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${film.comments.length}</span></h3>
+            <ul class="film-details__comments-list"></ul>
             <div class="film-details__new-comment">
               <div for="add-emoji" class="film-details__add-emoji-label">
                 <img src="images/emoji/smile.png" width="55" height="55" alt="emoji-smile">
