@@ -81,7 +81,7 @@ render(siteFooterElement, createFilmStatistics(filmsData.length), `beforeend`);
 // filmsData[0].comments.forEach(el => render(popupCommentsList, createFilmComment(el), `beforeend`));
 
 
-
+// очистить основной контейнер с фильмами
 const clearFilmsContainer = () => filmsListContainer.innerHTML = "";
 
 const sortElement = document.querySelector(".sort");
@@ -89,36 +89,53 @@ const sortButtons = sortElement.querySelectorAll(".sort__button");
 
 console.log(sortButtons[0]);
 
+// вешаем на контейнер сортировки один слушатель
 sortElement.addEventListener("click", (evt) => {
+  // если кликнули по активному фильтру - возврат
   if (evt.target.classList.contains("sort__button--active")) return;
+  // убираем с предыдущей кнопки класс активной
   sortButtons.forEach(el => el.classList.remove("sort__button--active"));
+  // для простоты, переименовываем кликнутые кнопки
   const clickedSort = evt.target;
   const clickedSortName = evt.target.textContent.toLowerCase();
+  // добавляем к новой сортировке класс активной
   clickedSort.classList.add("sort__button--active");
-  const renderFilms = (number, startingIndex) => {
-    for (let i = 0; i < number; i++) {
-      if (filmsDataCopy[startingIndex] === false) {
-        console.log("filmsData с таким индексом не существует", startingIndex);
-        console.log(filmsDataCopy);
+
+  // через замыкание добавляем переменную индекс для отслеживания количества отрендеренных фильмов
+  //
+  //
+  //
+  // СЕРЁЖ ПОСМОТРИ ТУТ, НЕ ЗНАЮ КАК СДЕЛАТЬ, ЧТОБЫ РЕНДЕРИЛ 5 КАРТОЧЕК
+  // И ЗАПОМИНАЛ КАКИЕ ОТРЕНДЕРИТЬ ЕЩЁ И КОГДА НУЖНО РЕНДЕРИТЬ КНОПКУ ПОКАЗАТЬ ЕЩЁ
+  const renderFilms = {
+    this.idx = 0;
+
+
+    this.add = function(films) {
+    return function (films) {
+      for (let i = 0; i < 5; i++) {
+        if (films[idx] === false) {
+          console.log("filmsData с таким индексом не существует", idx);
+          console.log(films);
+          return;
+        };
+        render(filmsListContainer, createFilmCard(films[idx]), `beforeend`);
+        idx++;
+      }
+      return;
       };
-      render(filmsListContainer, createFilmCard(filmsDataCopy[startingIndex]), `beforeend`);
-      startingIndex++;
-    }
+    };
   }
-  const renderMoreFilms = (number) => {
-    let idx = 0;
-    renderFilms(number, idx);
-  };
 
   switch (clickedSortName) {
       case "sort by default":
         console.log("def");
-
         clearFilmsContainer();
+        addFilms(filmsData);
         if (filmsDataNotRendered.length > 5) {
-          render(filmsListContainer, createShowMoreButton(), `beforeend`);
           const showMoreBtn = document.querySelector(".films-list__show-more");
           showMoreBtn.addEventListener("click", (evt) => {
+            addFilms(filmsDataCopy);
             // render ещё 5 не отрендереных картинок
             // если ещё остаются не отрендеренные фильмы, кнопка остаётся
             // если всё отрендерено, кнопка удаляется после рендера
