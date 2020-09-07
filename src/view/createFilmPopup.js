@@ -45,7 +45,7 @@ export const createFilmPopup = (film) => {
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Release Date</td>
-                  <td class="film-details__cell">${Object.values(film.date).join(" ")}</td>
+                  <td class="film-details__cell">${film.date.getFullYear()}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Runtime</td>

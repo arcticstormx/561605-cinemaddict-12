@@ -174,7 +174,7 @@ export const createMockFilmData = () => {
   card.director = getRandomName(MOCK_NAMES, MOCK_LASTNAMES);
   card.writers = getRandomName(MOCK_NAMES, MOCK_LASTNAMES);
   card.actors = getRandomName(MOCK_NAMES, MOCK_LASTNAMES);
-  card.date = getRandomDate(new Date(1900, 0, 1), new Date());
+  card.date = getRandomDate(new Date(1900, 0, 1), new Date(1980, 0, 1));
   card.runtime = getRuntime();
   card.country = getRandomElement(COUNTRIES);
   card.genres = getRandomGenres(3);

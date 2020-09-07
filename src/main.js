@@ -11,7 +11,7 @@ import {createFilmPopup} from "./view/createFilmPopup.js";
 import {createFilmComment} from "./view/createFilmComment.js";
 import {createMockFilmData} from "./mock/createMockFilmData.js";
 
-let filmsData = [...new Array(20)]
+let filmsData = [...new Array(8)]
     .map(createMockFilmData);
 const filmsDataCopy = [...filmsData];
 
@@ -33,12 +33,19 @@ render(siteMainElement, createFilmsBlock(), `beforeend`);
 const mainFilmsBlock = siteMainElement.querySelector(`.films`);
 const filmsList = mainFilmsBlock.querySelector(`.films-list`);
 const filmsListContainer = filmsList.querySelector(`.films-list__container`);
+const createFilmCards = (arr) => {
+  arr.forEach((el) => render(filmsListContainer, createFilmCard(el), `beforeend`));
+};
 
 // отрисуем карточки фильмов внутри главного блока фильмов
-for (let i = 0; i < 5; i++) {
-  render(filmsListContainer, createFilmCard(filmsData[i]), `beforeend`);
-}
-render(filmsListContainer, createShowMoreButton(), `beforeend`);
+createFilmCards(filmsData.slice(0, 5));
+render(filmsList, createShowMoreButton(), `beforeend`);
+const showMoreBtn = document.querySelector(".films-list__show-more");
+showMoreBtn.addEventListener("click", (evt) => {
+  const filmCards = filmsListContainer.children;
+  createFilmCards(filmsData.slice(filmCards.length, filmCards.length + 5));
+  if (filmCards.length >= filmsData.length) evt.currentTarget.remove();
+});
 
 // отрисуем блок топовых фильмов
 render(mainFilmsBlock, createTopRatedBlock(), `beforeend`);
@@ -101,39 +108,12 @@ sortElement.addEventListener("click", (evt) => {
   // добавляем к новой сортировке класс активной
   clickedSort.classList.add("sort__button--active");
 
-  // через замыкание добавляем переменную индекс для отслеживания количества отрендеренных фильмов
-  //
-  //
-  //
-  // СЕРЁЖ ПОСМОТРИ ТУТ, НЕ ЗНАЮ КАК СДЕЛАТЬ, ЧТОБЫ РЕНДЕРИЛ 5 КАРТОЧЕК
-  // И ЗАПОМИНАЛ КАКИЕ ОТРЕНДЕРИТЬ ЕЩЁ И КОГДА НУЖНО РЕНДЕРИТЬ КНОПКУ ПОКАЗАТЬ ЕЩЁ
-  const renderFilms = {
-    this.idx = 0;
-
-
-    this.add = function(films) {
-    return function (films) {
-      for (let i = 0; i < 5; i++) {
-        if (films[idx] === false) {
-          console.log("filmsData с таким индексом не существует", idx);
-          console.log(films);
-          return;
-        };
-        render(filmsListContainer, createFilmCard(films[idx]), `beforeend`);
-        idx++;
-      }
-      return;
-      };
-    };
-  }
-
   switch (clickedSortName) {
       case "sort by default":
         console.log("def");
         clearFilmsContainer();
         addFilms(filmsData);
         if (filmsDataNotRendered.length > 5) {
-          const showMoreBtn = document.querySelector(".films-list__show-more");
           showMoreBtn.addEventListener("click", (evt) => {
             addFilms(filmsDataCopy);
             // render ещё 5 не отрендереных картинок
